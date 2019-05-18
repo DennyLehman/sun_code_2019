@@ -10,7 +10,7 @@ class MakeDB(DataLoader):
 	def print_hi(self):
 		print('hi')
 
-	def make_table(self):
+	def make_tables(self):
 		commands = (
 		""" 
 		DROP TABLE retail_energy_usage;

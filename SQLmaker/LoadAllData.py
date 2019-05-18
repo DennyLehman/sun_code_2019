@@ -1,5 +1,6 @@
 from DataLoader import DataLoader
 import pandas as pd
+import random
 
 class AllDataLoader(DataLoader):
 	"""docstring for AllDataLoader"""
@@ -67,13 +68,42 @@ class AllDataLoader(DataLoader):
 
 		return sql[:-2]
 
+	def get_zip_code(self,city):
+		
+		sunnyvale = ['94085','94086','94088','94089']
+		saratoga = ['95070','95071']
+		los_altos = ['94022','94023','94024']
+		campbell = ['95008','95009','95011']
+		gilroy = ['95020', '95021']
+		santa_clara_unincorp = ['95050','95051','95052','95053','95054','95055','95056']
+		cupertino = ['95014','95015']
+		mountain_view = ['94035','94036','94037','94038','94039','94040','94041','94042','94043']
+		milpitas = ['95035','95036']
+		morgan_hill = ['95037','95038']
+		monte_sereno = ['95030']
+		los_gatos = ['95030','95031','95032','95033']
+
+		d ={
+			'CAMPBELL':campbell,'CUPERTINO':cupertino ,'GILROY':gilroy,'LOS ALTOS':los_altos,'LOS ALTOS HILLS':los_altos,'LOS GATOS':los_gatos,'MILPITAS':milpitas,'MONTE SERENO':monte_sereno,
+			'MORGAN HILL':morgan_hill,'MOUNTAIN VIEW':mountain_view,'SARATOGA':saratoga,'SUNNYVALE':sunnyvale,'UNINCORPORATED': santa_clara_unincorp
+			}
+
+		ran = random.randint(0,len(d[city])-1)
+		#print(city, ran)
+		_zip = d[city][ran]
+
+
+		return _zip
+
 	def make_house_sql_string(self, data):
 		sql = """
-		INSERT INTO house_data (city, end_use, solar, bedrooms, garage, heat_air_cond, total_area, total_rooms, built_year, advanced_vehicle,state) VALUES
+		INSERT INTO house_data (city, end_use, solar, bedrooms, garage, heat_air_cond, total_area, total_rooms, built_year, advanced_vehicle, state, zip_code) VALUES
 		"""
+
+
 		for d in data:
-			
-			sql += '(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',{6},\'{7}\',\'{8}\',\'{9}\',\'CA\'), '.format(d[0],d[1],d[26],d[27],d[28],d[29],d[30],d[31],d[32],d[57])
+			_zip = self.get_zip_code(d[0])
+			sql += '(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',{6},\'{7}\',\'{8}\',\'{9}\',\'CA\',\'{10}\'), '.format(d[0],d[1],d[26],d[27],d[28],d[29],d[30],d[31],d[32],d[57],_zip)
 		
 		sql = sql[:-2]
 
@@ -112,7 +142,8 @@ if __name__ == '__main__':
 	#print(adl.pivot_month_data()[0:5])
 	#adl.run_gas_data()
 	#adl.pivot_gas()
-	
+	#print(adl.get_zip_code('CAMPBELL'))
+
 	# check with marta on map overlay
 	# who - introduce population, show dash
 		# low income\
