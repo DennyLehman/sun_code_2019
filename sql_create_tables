@@ -51,7 +51,7 @@ median_family int
 
 create table house_data
 (
-row_id serial,
+house_id serial,
 city varchar,
 end_use varchar,
 solar bit,
@@ -61,5 +61,7 @@ heat_air_cond varchar,
 total_area int,
 total_rooms int,
 built_year int,
-advanced_vehicle varchar
+advanced_vehicle varchar,
+state varchar,
+zip_code int
 )
