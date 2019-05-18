@@ -20,7 +20,7 @@ class DataLoader(object):
 
 	def get_file_path(self, file_name, sub_directory=None):
 		
-		file_path = os.path.join(self.app_folder, 'raw_data', sub_directory, file_name)
+		file_path = os.path.join(self.app_folder, sub_directory, file_name)
 
 		return file_path
 
@@ -32,11 +32,15 @@ class DataLoader(object):
 	
 	''' TODO: make csv reader '''	
 	def read_csv_data_from_file(self, file_path):
+		
 		with open(file_path, mode='r') as csv_file:
-			data = csv.reader(csv_file)
-			for d in data:
-				print(d)
+		
+			reader = csv.reader(csv_file)
+		
+			data = list(reader)
+		
 		return data
+
 	def get_json_data(self,file_name, sub_directory):
 		
 		file_path = self.get_file_path(file_name=file_name, sub_directory=sub_directory)
