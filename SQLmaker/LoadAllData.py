@@ -18,9 +18,44 @@ class AllDataLoader(DataLoader):
 
 	def pivot_month_data(self):
 		df = pd.read_csv(self.get_file_path(file_name='Powerhouse_SunCode_SVCE_Data.csv',sub_directory='raw_data'))
-		
-		pass
+		months = ['thrm_jan','thrm_feb','thrm_mar','thrm_apr','thrm_may','thrm_jun','thrm_jul','thrm_aug','thrm_sep','thrm_oct','thrm_nov','thrm_dec']
+		i = 1
+		#new_df = pd.DataFrame(columns = ['1','2','3','4','5','6','7','8','9','10','11','12'])
+		new_df = pd.DataFrame(columns=['A'])
+		for m in months:
+			print(i,m)
+			new_df['{}'.format(i)] = df[m]
+			i = i+1
 
+		new_df = new_df.reset_index()
+		new_df['house_id'] = new_df['index']
+		new_df = new_df.drop(columns=['A','index'])
+		num_months = ['1','2','3','4','5','6','7','8','9','10','11','12']
+		new_df = pd.melt(new_df,id_vars=['house_id'])
+		#print(num_months)
+		#print(new_df.columns)
+		#new_df = pd.melt(df,id_vars=num_months)
+		'''
+		df = df[['thrm_jan','thrm_feb','thrm_mar','thrm_apr','thrm_may','thrm_jun','thrm_jul','thrm_aug','thrm_sep','thrm_oct','thrm_nov','thrm_dec']]
+		df['1'] = df['thrm_jan']
+		df['2'] = df['thrm_jan']
+		df['3'] = df['thrm_jan']
+		df['4'] = df['thrm_jan']
+		df['5'] = df['thrm_jan']
+		df['6'] = df['thrm_jan']
+		df['7'] = df['thrm_jan']
+		df['8'] = df['thrm_jan']
+		df['9'] = df['thrm_jan']
+		'''
+		print(new_df.head())
+
+
+		return new_df.values.tolist()
+
+
+	def make_gas_sql_string(self,data):
+		
+		return sql
 
 	def make_house_sql_string(self, data):
 		sql = """
@@ -57,7 +92,8 @@ class AllDataLoader(DataLoader):
 
 if __name__ == '__main__':
 	adl = AllDataLoader()
-	adl.load_table_house_data()
+	#adl.load_table_house_data()
+	adl.pivot_month_data()
 
 	# check with marta on map overlay
 	# who - introduce population, show dash
