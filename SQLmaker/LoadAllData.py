@@ -7,7 +7,7 @@ class AllDataLoader(DataLoader):
 		self.file_name = 'Powerhouse_SunCode_SVCE_Data.csv'
 
 	def main(self):
-		file_path = self.get_file_path(file_name='Powerhouse_SunCode_SVCE_Data.csv',sub_directory='raw_data')
+		file_path = self.get_file_path(file_name='Powerhouse_SunCode_SVCE_Data.csv')
 
 		d = self.read_csv_data_from_file(file_name=file_path)
 		return d

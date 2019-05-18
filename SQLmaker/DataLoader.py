@@ -20,7 +20,7 @@ class DataLoader(object):
 
 	def get_file_path(self, file_name, sub_directory=None):
 		
-		file_path = os.path.join(self.app_folder, 'raw_data', self.company_name, sub_directory, file_name)
+		file_path = os.path.join(self.app_folder, 'raw_data', sub_directory, file_name)
 
 		return file_path
 
