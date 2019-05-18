@@ -1,0 +1,12 @@
+,schema,,,,,,,,,,,,,,,,
+,city,,,average household,,,,population,,,retail energy,,,,,,electric vehicle
+pk,id,id,,,,,,,,,city_id,,,,,,pv
+,name,string,,,,,,,,,,,,,,,high energy useage
+,population_id,,,,,,,,,,,,,,,,high energy usage per person
+,average_household_id,,,,,,,,,,,,,,,,what is the significance of heating
+,,,,,,,,,,,,,,,,,median income
+,,,,,,,,,,,,,,,,,education level
+,,,,,,,,,,,,,,,,,age of house
+,,,,,,,,,,,,,,,,,kids
+,,,,,,,,,,,,,,,,,rent or own
+,,,,,,,,,,,,,,,,,average age of population
