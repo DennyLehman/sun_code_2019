@@ -32,6 +32,7 @@ class AllDataLoader(DataLoader):
 		new_df = new_df.drop(columns=['A','index'])
 		num_months = ['1','2','3','4','5','6','7','8','9','10','11','12']
 		new_df = pd.melt(new_df,id_vars=['house_id'])
+		new_df = new_df.fillna(0)
 		#print(num_months)
 		#print(new_df.columns)
 		#new_df = pd.melt(df,id_vars=num_months)
@@ -54,8 +55,14 @@ class AllDataLoader(DataLoader):
 
 
 	def make_gas_sql_string(self,data):
-		
-		return sql
+		sql = """
+		INSERT INTO thermal_data (house_id, month, thermal) VALUES 
+		"""
+		for d in data:
+			#print(d)
+			sql += '({},{},{}), '.format(d[0],d[1],d[2])
+
+		return sql[:-2]
 
 	def make_house_sql_string(self, data):
 		sql = """
@@ -89,11 +96,18 @@ class AllDataLoader(DataLoader):
 
 		pass
 
+	def run_gas_data(self):
+		data = self.pivot_month_data()
+		sql = self.make_gas_sql_string(data)
+		success = self.run_query(sql)
+		return success
+
 
 if __name__ == '__main__':
 	adl = AllDataLoader()
 	#adl.load_table_house_data()
-	adl.pivot_month_data()
+	print(adl.pivot_month_data()[0:5])
+	adl.run_gas_data()
 
 	# check with marta on map overlay
 	# who - introduce population, show dash
