@@ -1,0 +1,65 @@
+create table retail_energy_plan
+(
+row_id serial,
+house_id varchar,
+month int,
+EPlan int
+)
+
+create table CSC
+(
+row_id serial,
+house_id varchar,
+month int,
+CSC varchar
+)
+
+create table retail_sched
+(
+row_id serial,
+house_id varchar,
+month int,
+RTSched int
+)
+
+create table thermal_data
+(
+row_id serial,
+house_id varchar,
+month int,
+thermal int
+)
+
+
+create table city_averages
+(
+row_id serial,
+county varchar,
+munic_type varchar,
+pop int,
+white numeric,
+other numeric,
+asian numeric,
+african_american numeric,
+native american numeric,
+hispanic numeric,
+per_capita int,
+median_household int,
+median_family int
+)
+
+
+create table house_data
+(
+row_id serial,
+city varchar,
+end_use varchar,
+solar bool,
+bedrooms int,
+garage bool,
+heat_air_cond varchar,
+total_area int,
+total_rooms int,
+built_year int,
+advanced_vehicle varchar
+)
