@@ -76,7 +76,7 @@ class AllDataLoader(DataLoader):
 		campbell = ['95008','95009','95011']
 		gilroy = ['95020', '95021']
 		santa_clara_unincorp = ['95050','95051','95052','95053','95054','95055','95056']
-		cupertino = ['95014','95015']
+		cupertino = ['94024','94087','95014','95015']
 		mountain_view = ['94035','94036','94037','94038','94039','94040','94041','94042','94043']
 		milpitas = ['95035','95036']
 		morgan_hill = ['95037','95038']
@@ -95,6 +95,9 @@ class AllDataLoader(DataLoader):
 
 		return _zip
 
+	
+	
+
 	def make_house_sql_string(self, data):
 		sql = """
 		INSERT INTO house_data (city, end_use, solar, bedrooms, garage, heat_air_cond, total_area, total_rooms, built_year, advanced_vehicle, state, zip_code) VALUES
@@ -106,6 +109,22 @@ class AllDataLoader(DataLoader):
 			sql += '(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',{6},\'{7}\',\'{8}\',\'{9}\',\'CA\',\'{10}\'), '.format(d[0],d[1],d[26],d[27],d[28],d[29],d[30],d[31],d[32],d[57],_zip)
 		
 		sql = sql[:-2]
+
+		return sql
+
+	def make_houst_state_2_sql_string(self,data):
+		sql = """
+		INSERT INTO thermal_data (house_id, month, thermal) VALUES 
+		"""
+		for d in data:
+			#print(d)
+			sql += '({},{},{}), '.format(d[0],d[1],d[2])
+
+		return sql[:-2]
+
+		if _zip = '95014':
+			thermal = self.reduce_95014()
+
 
 		return sql
 
@@ -140,7 +159,7 @@ if __name__ == '__main__':
 	adl = AllDataLoader()
 	adl.load_table_house_data()
 	#print(adl.pivot_month_data()[0:5])
-	#adl.run_gas_data()
+	adl.run_gas_data()
 	#adl.pivot_gas()
 	#print(adl.get_zip_code('CAMPBELL'))
 
