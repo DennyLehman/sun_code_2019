@@ -95,8 +95,11 @@ class AllDataLoader(DataLoader):
 
 		return _zip
 
+
 	
-	
+
+	def load_survey_results(self):
+		pass
 
 	def make_house_sql_string(self, data):
 		sql = """
