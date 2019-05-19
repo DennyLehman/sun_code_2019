@@ -99,7 +99,35 @@ class AllDataLoader(DataLoader):
 	
 
 	def load_survey_results(self):
-		pass
+		
+		file_name = 'survey_results.csv'
+
+		data = self.get_data()
+
+		sql = self.update_db_with_survey_results(data)
+		
+		success = self.run_query(sql)
+
+		return success
+
+	def update_db_with_survey_results(self,data):
+		sql  = """
+			INSERT INTO survey (zip, house_type, stove_type, email) VALUES
+			"""
+
+		for d in data:
+			
+			_zip = d[1]
+			
+			house_type = d[2]
+			
+			stove_type = d[3]
+			
+			email = d[14]
+			
+			sql += '({0},{1},{2},{3})'.format(_zip,house_type,stove_type,email)
+		
+		return sql
 
 	def make_house_sql_string(self, data):
 		sql = """
